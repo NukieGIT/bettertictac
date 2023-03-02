@@ -83,8 +83,8 @@ public class ConsoleBoardView implements IBoardView {
             }
             String[] splitUserInput = userInput.trim().split("\\s+");
             Vector2D pos = new Vector2D(Integer.parseInt(splitUserInput[0]), Integer.parseInt(splitUserInput[1]));
-            renderBoard();
             onNewPosition.invoke(this, pos);
+            renderBoard();
         }
         stopInput = false;
     }
