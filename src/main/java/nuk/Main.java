@@ -1,7 +1,7 @@
 package nuk;
 
 
-import nuk.logic.Figure;
+import nuk.logic.Player;
 import nuk.logic.GameManager;
 import nuk.logic.GameSettings;
 import nuk.logic.SettingsManager;
@@ -11,9 +11,9 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        Figure[] players = {
-                new Figure("x", Color.CYAN),
-                new Figure("o", Color.MAGENTA)
+        Player[] players = {
+                new Player("x", Color.CYAN),
+                new Player("o", Color.MAGENTA)
         };
 
         GameSettings gameSettings = new GameSettings(

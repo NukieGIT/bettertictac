@@ -25,13 +25,13 @@ public class WinChecker {
         settings = SettingsManager.getInstance().getSettings();
     }
 
-    public Figure WinnerCheck(HashMap<Vector2D, Figure> map) {
+    public Player WinnerCheck(HashMap<Vector2D, Player> map) {
         int toWin = settings.getToWin();
         visited.clear();
 
-        for(Map.Entry<Vector2D, Figure> entry : map.entrySet()) {
+        for(Map.Entry<Vector2D, Player> entry : map.entrySet()) {
             Vector2D k = entry.getKey();
-            Figure v = entry.getValue();
+            Player v = entry.getValue();
 
             for (Vector2D dir : DIRECTIONS) {
                 correctPositions.clear();
@@ -47,13 +47,13 @@ public class WinChecker {
         return null;
     }
 
-    private void IsPosValid(HashMap<Vector2D, Figure> map, int toWin, Vector2D k, Figure v, Vector2D dir, boolean isReverse) {
+    private void IsPosValid(HashMap<Vector2D, Player> map, int toWin, Vector2D k, Player v, Vector2D dir, boolean isReverse) {
         int checkDir = 1;
         if (isReverse) checkDir = -1;
 
         for (int i = 1; i < toWin; i++) {
             Vector2D pos = k.getAdded(dir.getMultiplied(i * checkDir));
-            Figure atPos = map.get(pos);
+            Player atPos = map.get(pos);
             if (atPos == v) {
                 correctPositions.add(pos);
                 visited.add(pos);

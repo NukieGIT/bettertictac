@@ -7,10 +7,10 @@ import nuk.util.Vector2D;
 import java.util.HashMap;
 
 public class BoardModel {
-    private HashMap<Vector2D, Figure> map = new HashMap<>();
+    private HashMap<Vector2D, Player> map = new HashMap<>();
     private GameSettings settings;
     private WinChecker  winChecker;
-    private EventManager<Figure> onWin;
+    private EventManager<Player> onWin;
 
     public BoardModel() {
         settings = SettingsManager.getInstance().getSettings();
@@ -19,20 +19,20 @@ public class BoardModel {
     }
 
     private void checkForWinner() {
-        Figure winner = winChecker.WinnerCheck(map);
+        Player winner = winChecker.WinnerCheck(map);
         if (winner != null) onWin.invoke(this, winner);
     }
 
-    public HashMap<Vector2D, Figure> getMap() {
+    public HashMap<Vector2D, Player> getMap() {
         return map;
     }
 
-    public void setMap(HashMap<Vector2D, Figure> map) {
+    public void setMap(HashMap<Vector2D, Player> map) {
         this.map = map;
     }
 
-    public void setPosition(Vector2D pos, Figure figure) {
-        map.put(pos, figure);
+    public void setPosition(Vector2D pos, Player player) {
+        map.put(pos, player);
         checkForWinner();
     }
 
@@ -40,7 +40,7 @@ public class BoardModel {
         map.remove(pos);
     }
 
-    public Event<Figure> getOnWinEvent() {
+    public Event<Player> getOnWinEvent() {
         return onWin.getEvent();
     }
 

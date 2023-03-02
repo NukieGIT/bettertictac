@@ -6,10 +6,10 @@ import java.util.Arrays;
 
 public class GameSettings {
     private Vector2D size;
-    private Figure[] players;
+    private Player[] players;
     private int toWin;
 
-    public GameSettings(Vector2D size, Figure[] players, int toWin) {
+    public GameSettings(Vector2D size, Player[] players, int toWin) {
         this.size = size;
         this.players = players;
         this.toWin = toWin;
@@ -19,7 +19,7 @@ public class GameSettings {
         return size;
     }
 
-    public Figure[] getPlayers() {
+    public Player[] getPlayers() {
         return players;
     }
 

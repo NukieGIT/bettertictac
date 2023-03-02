@@ -1,23 +1,24 @@
 package nuk.ui;
 
 import nuk.logic.BoardModel;
-import nuk.logic.Figure;
-
-import java.awt.*;
+import nuk.logic.ITurnService;
 
 public class BoardController {
     private IBoardView boardView;
     private BoardModel boardModel;
+    private ITurnService turnService;
 
-    public BoardController(IBoardView boardView, BoardModel boardModel) {
+    public BoardController(IBoardView boardView, BoardModel boardModel, ITurnService turnService) {
         this.boardView = boardView;
         this.boardModel = boardModel;
-        Figure testFigure = new Figure("x", Color.MAGENTA);
+        this.turnService = turnService;
+
         boardView.getNewPositionEvent().subscribe((s, pos) -> {
-            boardModel.setPosition(pos, testFigure);
+            boardModel.setPosition(pos, turnService.getCurrentTurn());
+            turnService.next();
         });
-        boardModel.getOnWinEvent().subscribe((s, figure) -> {
-            boardView.handleWinEvent(figure);
+        boardModel.getOnWinEvent().subscribe((s, player) -> {
+            boardView.handleWinEvent(player);
         });
     }
 

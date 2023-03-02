@@ -14,7 +14,8 @@ public class GameManager {
     public void newGame() {
         BoardModel boardModel = new BoardModel();
         IBoardView boardView = new ConsoleBoardView(boardModel);
-        boardController = new BoardController(boardView, boardModel);
+        ITurnService turnService = new TurnService();
+        boardController = new BoardController(boardView, boardModel, turnService);
     }
 
     public void startGame() {

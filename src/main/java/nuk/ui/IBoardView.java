@@ -1,7 +1,7 @@
 package nuk.ui;
 
 import nuk.events.Event;
-import nuk.logic.Figure;
+import nuk.logic.Player;
 import nuk.util.Vector2D;
 
 public interface IBoardView {
@@ -9,6 +9,6 @@ public interface IBoardView {
     void hide();
 
     Event<Vector2D> getNewPositionEvent();
-    void handleWinEvent(Figure figure);
+    void handleWinEvent(Player player);
 
 }
