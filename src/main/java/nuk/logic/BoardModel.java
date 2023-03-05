@@ -27,6 +27,10 @@ public class BoardModel {
         return map;
     }
 
+    public Player getPlayerAtPos(Vector2D pos) {
+        return map.get(pos);
+    }
+
     public void setMap(HashMap<Vector2D, Player> map) {
         this.map = map;
     }
