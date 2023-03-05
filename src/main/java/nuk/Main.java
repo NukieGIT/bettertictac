@@ -1,12 +1,14 @@
 package nuk;
 
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import nuk.logic.Player;
 import nuk.logic.GameManager;
 import nuk.logic.GameSettings;
 import nuk.logic.SettingsManager;
 import nuk.util.Vector2D;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Main {

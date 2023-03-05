@@ -1,8 +1,8 @@
 package nuk.logic;
 
 import nuk.ui.BoardController;
-import nuk.ui.ConsoleBoardView;
 import nuk.ui.IBoardView;
+import nuk.ui.SwingBoardView;
 
 public class GameManager {
 
@@ -13,7 +13,7 @@ public class GameManager {
 
     public void newGame() {
         BoardModel boardModel = new BoardModel();
-        IBoardView boardView = new ConsoleBoardView(boardModel);
+        IBoardView boardView = new SwingBoardView(boardModel);
         ITurnService turnService = new TurnService();
         boardController = new BoardController(boardView, boardModel, turnService);
     }
