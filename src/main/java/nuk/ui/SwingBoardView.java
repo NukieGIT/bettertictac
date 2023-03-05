@@ -11,6 +11,8 @@ import nuk.util.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.HashMap;
 
 public class SwingBoardView implements IBoardView {
@@ -48,9 +50,35 @@ public class SwingBoardView implements IBoardView {
 
                 btn.addActionListener(e -> {
                     onNewPosition.invoke(this, pos);
-                    btn.setText(boardModel.getMap().get(pos).getPlayer());
+                    Player player = boardModel.getPlayerAtPos(pos);
+                    btn.setText(player.getPlayer());
+                    btn.setForeground(player.getClr());
                 });
 
+                mainWindow.addComponentListener(new ComponentListener() {
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+                        int width = btn.getWidth();
+                        int height = btn.getHeight();
+
+                        btn.setFont(btn.getFont().deriveFont((float) Math.min(width, height)));
+                    }
+
+                    @Override
+                    public void componentMoved(ComponentEvent e) {
+
+                    }
+
+                    @Override
+                    public void componentShown(ComponentEvent e) {
+
+                    }
+
+                    @Override
+                    public void componentHidden(ComponentEvent e) {
+
+                    }
+                });
             }
         }
     }
