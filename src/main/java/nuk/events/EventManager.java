@@ -3,7 +3,7 @@ package nuk.events;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class EventManager<T> {
+public class EventManager<T extends EventArgs> {
     private ArrayList<IEventHandler<T>> handlers;
     private Event<T> event;
 
@@ -12,13 +12,13 @@ public class EventManager<T> {
         event = new Event<>(this);
     }
 
-    public void addHandler(IEventHandler<T> handler) {
+    void addHandler(IEventHandler<T> handler) {
         synchronized (event) {
             handlers.add(handler);
         }
     }
 
-    public void removeHandler(IEventHandler<T> handler) {
+    void removeHandler(IEventHandler<T> handler) {
         synchronized (event) {
             for (Iterator<IEventHandler<T>> it = handlers.iterator(); it.hasNext();) {
                 IEventHandler<T> ref = it.next();

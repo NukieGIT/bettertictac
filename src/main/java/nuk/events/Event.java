@@ -1,6 +1,6 @@
 package nuk.events;
 
-public class Event<T> {
+public class Event<T extends EventArgs> {
     private EventManager<T> parent;
 
     protected Event(EventManager<T> parent) {
