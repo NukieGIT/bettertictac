@@ -2,6 +2,7 @@ package nuk.events;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class EventManager<T extends EventArgs> {
     private ArrayList<IEventHandler<T>> handlers;
@@ -47,7 +48,7 @@ public class EventManager<T extends EventArgs> {
         }
 
         for (IEventHandler<T> handler : targets) {
-            handler.handleEvent(source, args);
+            handler.handleEvent(source, Objects.requireNonNull(args, "args must not be null"));
         }
     }
 
