@@ -2,6 +2,7 @@ package nuk.ui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import nuk.events.Event;
+import nuk.events.EventArg;
 import nuk.events.EventManager;
 import nuk.logic.BoardModel;
 import nuk.logic.GameSettings;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 
 public class SwingBoardView implements IBoardView {
 
-    private EventManager<Vector2D> onNewPosition;
+    private EventManager<EventArg<Vector2D>> onNewPosition;
     private GameSettings settings;
 
     private JFrame mainWindow;
@@ -48,12 +49,7 @@ public class SwingBoardView implements IBoardView {
                 buttons.put(pos, btn);
                 mainWindow.add(btn);
 
-                btn.addActionListener(e -> {
-                    onNewPosition.invoke(this, pos);
-                    Player player = boardModel.getPlayerAtPos(pos);
-                    btn.setText(player.getPlayer());
-                    btn.setForeground(player.getClr());
-                });
+                btn.addActionListener(e -> onNewPosition.invoke(this, new EventArg<>(pos)));
 
                 mainWindow.addComponentListener(new ComponentListener() {
                     @Override
@@ -65,19 +61,13 @@ public class SwingBoardView implements IBoardView {
                     }
 
                     @Override
-                    public void componentMoved(ComponentEvent e) {
-
-                    }
+                    public void componentMoved(ComponentEvent e) {}
 
                     @Override
-                    public void componentShown(ComponentEvent e) {
-
-                    }
+                    public void componentShown(ComponentEvent e) {}
 
                     @Override
-                    public void componentHidden(ComponentEvent e) {
-
-                    }
+                    public void componentHidden(ComponentEvent e) {}
                 });
             }
         }
@@ -94,7 +84,16 @@ public class SwingBoardView implements IBoardView {
     }
 
     @Override
-    public Event<Vector2D> getNewPositionEvent() {
+    public void update() {
+        boardModel.getMap().forEach((pos, player) -> {
+            JButton btn = buttons.get(pos);
+            btn.setText(player.getPlayer());
+            btn.setForeground(player.getClr());
+        });
+    }
+
+    @Override
+    public Event<EventArg<Vector2D>> getNewPositionEvent() {
         return onNewPosition.getEvent();
     }
 

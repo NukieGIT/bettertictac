@@ -1,6 +1,7 @@
 package nuk.ui;
 
 import nuk.events.Event;
+import nuk.events.EventArg;
 import nuk.events.EventManager;
 import nuk.logic.BoardModel;
 import nuk.logic.Player;
@@ -17,7 +18,7 @@ public class ConsoleBoardView implements IBoardView {
     boolean hasWon;
     private boolean stopInput;
     private GameSettings settings;
-    private EventManager<Vector2D> onNewPosition;
+    private EventManager<EventArg<Vector2D>> onNewPosition;
     private BoardModel model;
 
     public ConsoleBoardView(BoardModel model) {
@@ -82,7 +83,7 @@ public class ConsoleBoardView implements IBoardView {
             }
             String[] splitUserInput = userInput.trim().split("\\s+");
             Vector2D pos = new Vector2D(Integer.parseInt(splitUserInput[0]), Integer.parseInt(splitUserInput[1]));
-            onNewPosition.invoke(this, pos);
+            onNewPosition.invoke(this, new EventArg<>(pos));
             renderBoard();
         }
         stopInput = false;
@@ -94,7 +95,12 @@ public class ConsoleBoardView implements IBoardView {
     }
 
     @Override
-    public Event<Vector2D> getNewPositionEvent() {
+    public void update() {
+
+    }
+
+    @Override
+    public Event<EventArg<Vector2D>> getNewPositionEvent() {
         return onNewPosition.getEvent();
     }
 }

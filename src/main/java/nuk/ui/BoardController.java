@@ -14,12 +14,10 @@ public class BoardController {
         this.turnService = turnService;
 
         boardView.getNewPositionEvent().subscribe((s, pos) -> {
-            boardModel.setPosition(pos, turnService.getCurrentTurn());
+            boardModel.setPosition(pos.getValue(), turnService.getCurrentTurn());
             turnService.next();
         });
-        boardModel.getOnWinEvent().subscribe((s, player) -> {
-            boardView.handleWinEvent(player);
-        });
+        boardModel.getOnChangeEvent().subscribe((s, args) -> boardView.update());
     }
 
     public void showView() {

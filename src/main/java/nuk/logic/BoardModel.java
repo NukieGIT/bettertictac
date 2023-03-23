@@ -1,6 +1,7 @@
 package nuk.logic;
 
 import nuk.events.Event;
+import nuk.events.EventArgs;
 import nuk.events.EventManager;
 import nuk.util.Vector2D;
 
@@ -8,19 +9,10 @@ import java.util.HashMap;
 
 public class BoardModel {
     private HashMap<Vector2D, Player> map = new HashMap<>();
-    private GameSettings settings;
-    private WinChecker  winChecker;
-    private EventManager<Player> onWin;
+    private EventManager<EventArgs> onChange;
 
     public BoardModel() {
-        settings = SettingsManager.getInstance().getSettings();
-        onWin = new EventManager<>();
-        winChecker = new WinChecker();
-    }
-
-    private void checkForWinner() {
-        Player winner = winChecker.WinnerCheck(map);
-        if (winner != null) onWin.invoke(this, winner);
+        onChange = new EventManager<>();
     }
 
     public HashMap<Vector2D, Player> getMap() {
@@ -33,19 +25,21 @@ public class BoardModel {
 
     public void setMap(HashMap<Vector2D, Player> map) {
         this.map = map;
+        onChange.invoke(this, EventArgs.EMPTY);
     }
 
     public void setPosition(Vector2D pos, Player player) {
         map.put(pos, player);
-        checkForWinner();
+        onChange.invoke(this, EventArgs.EMPTY);
     }
 
     public void removePosition(Vector2D pos) {
         map.remove(pos);
+        onChange.invoke(this, EventArgs.EMPTY);
     }
 
-    public Event<Player> getOnWinEvent() {
-        return onWin.getEvent();
+    public Event<EventArgs> getOnChangeEvent() {
+        return onChange.getEvent();
     }
 
 }
